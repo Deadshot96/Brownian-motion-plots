@@ -25,7 +25,7 @@ def Brownian2D(t0: float = 0, t1: float = 1., N: int = 10000, nums: int = 1):
     # print(mean)
 
     dB = stdDev * np.random.normal(size=(N - 1, nums, 2), loc=mean)
-    B = np.cumsum(dB, axis=1)
+    B = np.cumsum(dB, axis=0)
     
     B = np.concatenate((mean, dB))
 
@@ -39,4 +39,4 @@ def Brownian2D(t0: float = 0, t1: float = 1., N: int = 10000, nums: int = 1):
 
 
 if __name__ == "__main__":
-    Brownian2D(0, 1., 100, 3)
+    Brownian2D(0, 1., 100, 1)

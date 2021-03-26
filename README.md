@@ -14,6 +14,6 @@
 > - N  => Number of time steps - Defaults to 10_000
 > - nums => Number of different instances of motions - Defaults to 3
 > - mean => Mean of the Brownian motion - Defaults to 0.0
-> - k => Only present in BrowniankD - Number of dimensions
+> - ndim => Only present in BrowniankD - Number of dimensions
 >
 > ### The function returns the spatial data in numpy array format.

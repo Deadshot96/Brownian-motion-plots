@@ -1,5 +1,8 @@
 import numpy as np
 
+"""
+    Brownian Motion K dimension.
+"""
 def BrowniankD(t0: float = 0, t1: float = 1., N: int = 10000, k: int = 4, nums: int = 3):
     
     timeSpace = np.linspace(t0, t1, N, endpoint=True, dtype=np.float64)

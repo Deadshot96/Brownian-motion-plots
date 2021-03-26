@@ -1,7 +1,6 @@
 import numpy as np
 from matplotlib import pyplot as plt
-from typing import Tuple
-from mpl_toolkits.mplot3d import Axes3D
+from typing import List
 from matplotlib import style
 
 style.use("ggplot")
@@ -12,24 +11,26 @@ style.use("ggplot")
      to get a good plot.
 """
 
-def Brownian2D(t0: float = 0, t1: float = 1., N: int = 10000, nums: int = 1):
+def Brownian2D(t0: float = 0, t1: float = 1., N: int = 10000, nums: int = 1, mean: List[float] = (0, 0)):
     timeSpace = np.linspace(t0, t1, num=N, endpoint=True, dtype=np.float64)
     dt = timeSpace[1] - timeSpace[0]
 
-    mean = np.array([(0, 0)], dtype=np.float64)
-    mean = mean.repeat(repeats=nums, axis=0)
-    stdDev = np.sqrt(np.array([dt, dt], dtype=np.float64))
-    stdDev = np.expand_dims(stdDev, 0)
+    std = np.sqrt([dt] * 2, dtype=np.float64)
+    std = np.expand_dims(std, 0)
+    std = std.repeat(nums, 0)
 
-    mean = np.expand_dims(mean, axis=0)
-    # print(mean)
+    mean = np.array(mean, dtype=np.float64)
+    mean = np.expand_dims(mean, 0)
+    mean = mean.repeat(nums, 0)
+    mean = np.expand_dims(mean, 0)
 
-    dB = stdDev * np.random.normal(size=(N - 1, nums, 2), loc=mean)
+    dB = np.random.normal(size=(N - 1, nums, 2))
     B = np.cumsum(dB, axis=0)
-    
-    B = np.concatenate((mean, dB))
+    B = mean + B
 
-    fig = plt.figure()
+    B = np.concatenate((mean, B))
+    print(B.shape)
+
     ax = plt.axes(projection='3d')
 
     for i in range(nums):
@@ -37,6 +38,8 @@ def Brownian2D(t0: float = 0, t1: float = 1., N: int = 10000, nums: int = 1):
     
     plt.show()
 
+    return B
+
 
 if __name__ == "__main__":
-    Brownian2D(0, 1., 100, 1)
+    Brownian2D(0, 1., 100, 3, (3, 2))
